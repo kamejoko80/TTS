@@ -17,7 +17,7 @@ pip install torchcodec mecab-python3 unidic-lite
 ```
 
 ```bash
-git clone git@github.com:kamejoko80/TTS.gi
+git clone git@github.com:kamejoko80/TTS.git
 cd TTS
 git checkout henry_rk3588
 make system-deps
@@ -85,13 +85,13 @@ conda create -n RKNN-Toolkit2 python=3.8
 Activate RKNN-Toolkit2:
 
 ```bash
-> conda activate RKNN-Toolkit2
+conda activate RKNN-Toolkit2
 ```
 
 To deactivate:
 
 ```bash
-> conda deactivate
+conda deactivate
 ```
 
 Install RKNN-Toolkit2 from github repo:
