@@ -126,6 +126,12 @@ def main():
         trim_samples += int(voc_sr * args.tail_ms / 1000)
 
     wav = wav[:trim_samples]
+
+    # Fix audio volume
+    peak = np.max(np.abs(wav))
+    if peak > 1e-6:
+        wav = wav / peak * 0.95
+
     wav = np.clip(wav, -1.0, 1.0)
 
     sf.write(args.out_wav, wav, voc_sr)
