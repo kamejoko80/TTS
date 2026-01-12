@@ -18,6 +18,7 @@ import torch.serialization
 _orig_load = torch.load
 torch.load = lambda *args, **kwargs: _orig_load(*args, **{**kwargs, "weights_only": False})
 
+
 def time_scale_mel_tc(mel_tc, speed):
     if abs(speed - 1.0) < 1e-6:
         return mel_tc
@@ -53,16 +54,18 @@ def split_text_natural(text, min_chars=6):
     for p in parts:
         buf += p
         if p in ".,!?;":
-            buf = buf.strip()
-            if len(buf) >= min_chars and len(buf.split()) >= 2:
-                chunks.append(buf)
+            s = buf.strip()
+            if len(s) >= min_chars:
+                chunks.append(s)
                 buf = ""
             else:
                 buf += " "
 
     if buf.strip():
-        if len(buf.strip()) >= min_chars and len(buf.split()) >= 2:
-            chunks.append(buf.strip())
+        chunks.append(buf.strip())
+
+    if len(chunks) == 0:
+        chunks = [text.strip()]
 
     return chunks
 
@@ -102,9 +105,13 @@ def main():
 
     text_chunks = split_text_natural(args.text)
 
-    for chunk in text_chunks:
-        if len(chunk.strip()) < 6 or len(chunk.split()) < 2:
-            continue
+    for i, chunk in enumerate(text_chunks):
+        chunk = chunk.strip()
+
+        # Allow short chunk if it is the only one
+        if len(text_chunks) > 1:
+            if len(chunk) < 6:
+                continue
 
         t0 = time.perf_counter()
         out = synthesis(
@@ -147,6 +154,9 @@ def main():
 
         total_mel_time += (t1 - t0)
         total_vocoder_time += (t3 - t2)
+
+    if len(wav_all) == 0:
+        raise RuntimeError("No audio chunks were generated. Check text chunking logic.")
 
     wav = np.concatenate(wav_all)
 
