@@ -183,6 +183,8 @@ Copy "hifigan_v2_T1200.rknn" from the Linux x86 PC into the Coqui_TTS/TTS/tts_rk
 
 ```bash
 cd Coqui_TTS/TTS/tts_rknn
-python3 tts_cpu_mel_rknn_hifigan_rk3588.py --vocoder_rknn models/hifigan_v2_T1200.rknn --tts_model tts_models/en/ljspeech/tacotron2-DDC --text "This sentence is synthesized entirely on the RK3588 NPU." --out_wav rknn_tts_tacotron2.wav --mel_frames 1200 --speed 1.0 --tail_ms 30
-python3 tts_cpu_mel_rknn_hifigan_rk3588.py --vocoder_rknn models/hifigan_v2_T1200.rknn --tts_model tts_models/en/ljspeech/fast_pitch --text "This sentence is synthesized entirely on the RK3588 NPU." --out_wav rknn_tts_fast_pitch.wav --mel_frames 1200 --speed 1.0 --tail_ms 30
+python3 tts_cpu_mel_rknn_hifigan_rk3588.py --vocoder_rknn models/hifigan_v2_T1200.rknn --tts_model tts_models/en/ljspeech/tacotron2-DDC --out_wav rknn_tts_tacotron2.wav --mel_frames 1200 --speed 1.0 --tail_ms 30 --text "This sentence is synthesized entirely on the RK3588 NPU."
+python3 tts_cpu_mel_rknn_hifigan_rk3588.py --vocoder_rknn models/hifigan_v2_T1200.rknn --tts_model tts_models/en/ljspeech/fast_pitch --out_wav rknn_tts_fast_pitch.wav --mel_frames 1200 --speed 1.0 --tail_ms 30 --text "This sentence is synthesized entirely on the RK3588 NPU."
+python3 tts_cpu_mel_rknn_hifigan_text_chunking_rk3588.py --vocoder_rknn models/hifigan_v2_T1200.rknn --tts_model tts_models/en/ljspeech/fast_pitch --out_wav rknn_tts_fast_pitch.wav --mel_frames 1200 --speed 1.0 --tail_ms 30 \ 
+--text "AI technology enables machines to perform tasks needing human intelligence, like learning, reasoning, problem-solving, and understanding language, by processing data to recognize patterns, make decisions, and adapt, powering everything from virtual assistants and recommendation systems to self-driving cars and medical diagnostics. It's a field of computer science focused on creating smart systems that learn from data rather than explicit programming, improving performance over time. "
 ```
